@@ -16,9 +16,9 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x = this.x + (Math.random() * (380 - 100) + 100) * dt;
-    // reset the bug to a position of -50 if it exceeds 600
+    
     if (this.x > 606) {
-         this.x = -150 - (Math.random() * (300 - 1) + 1);
+      this.x = -150 - (Math.random() * (300 - 1) + 1);
     }
 }
  
@@ -37,19 +37,21 @@ var Player = function(x, y) {
 Player.prototype.update = function(dt) {
 
   // reset Players position when hits the water image
-   if (this.y < 0) {
-   this.reset();
-   console.log("score");    // need to ad score 
+    if (this.y < 0) {
+      this.reset();
+      alert("You Win!");
+      console.log('Win(s)');    // prints score to the console 
    }   
 }
 
 // check for enemy/Player collisions
 var checkCollisions = function() {
- allEnemies.forEach(function(enemy) {
-  if(enemy.x < player.x + 40 &&
-     enemy.x + 40 > player.x &&
-     enemy.y < player.y + 40 &&
-     enemy.y + 40 > player.y) {
+    allEnemies.forEach(function(enemy) {
+    if(enemy.x < player.x + 60 &&
+       enemy.x + 60 > player.x &&
+       enemy.y < player.y + 60 &&
+       enemy.y + 60 > player.y) {
+       alert("You Lose, Try Again.")
        player.reset();
     }
   });
@@ -58,8 +60,8 @@ var checkCollisions = function() {
 
 // Resets player to start position
 Player.prototype.reset = function() {
-  this.x = 202;
-  this.y = 402;
+    this.x = 202;
+    this.y = 380;
 }
 
 // renders the Player image
@@ -96,19 +98,19 @@ Player.prototype.handleInput = function(key) {
 
 
 // Now instantiate your objects.
-var enemy1 = new Enemy(-100,65);
-var enemy2 = new Enemy(-200,148);
-var enemy3 = new Enemy(-50,231);
-var enemy4 = new Enemy(-350,148);
+var enemy1 = new Enemy(-100,60);
+var enemy2 = new Enemy(-200,140);
+var enemy3 = new Enemy(-50,225);
+var enemy4 = new Enemy(-350,140);
 
 
 // Places all enemy objects in an array called allEnemies
-var allEnemies = [];
-allEnemies.push(enemy1, enemy2, enemy3, enemy4);
+var allEnemies = [enemy1, enemy2, enemy3, enemy4];
+
 
 
 // Places the player object in a variable called player
-var player = new Player(202, 397);
+var player = new Player(202, 380);
 
 
 
@@ -116,10 +118,10 @@ var player = new Player(202, 397);
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down',
+      37: 'left',
+      38: 'up',
+      39: 'right',
+      40: 'down',
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
